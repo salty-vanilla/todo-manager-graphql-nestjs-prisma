@@ -1,0 +1,23 @@
+{
+  "name": "API Server",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "api",
+  "workspaceFolder": "/code",
+  "shutdownAction": "none",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+		"eamodio.gitlens",
+		"shardulm94.trailing-spaces",
+		"EditorConfig.EditorConfig",
+		"mhutchie.git-graph",
+		"GraphQL.vscode-graphql-syntax",
+		"esbenp.prettier-vscode",
+		"ionutvmi.path-autocomplete",
+		"humao.rest-client"
+	]
+    }
+  }
+}

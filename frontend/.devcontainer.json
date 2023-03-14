@@ -1,0 +1,25 @@
+{
+  "name": "Vite",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "frontend",
+  "workspaceFolder": "/code",
+"shutdownAction": "none",
+"customizations": {
+	"vscode": {
+		"extensions": [
+			"eamodio.gitlens",
+			"shardulm94.trailing-spaces",
+			"EditorConfig.EditorConfig",
+			"mhutchie.git-graph",
+			"vscode-icons-team.vscode-icons",
+			"esbenp.prettier-vscode",
+			"ionutvmi.path-autocomplete",
+			"ecmel.vscode-html-css",
+			"formulahendry.auto-rename-tag",
+			"glenn2223.live-sass"
+		]
+	}
+}
+}
