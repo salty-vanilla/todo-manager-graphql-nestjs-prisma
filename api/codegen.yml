@@ -1,7 +1,7 @@
 overwrite: true
 generates:
-  ./src/types/generated/graphql.ts:
-    schema: schema.graphql
+  ./src/@generated/graphql-codegen/graphql.ts:
+    schema: src/schema.graphql
     config:
       useIndexSignature: true
       contextType: ../context#Context

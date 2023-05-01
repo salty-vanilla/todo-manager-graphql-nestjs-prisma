@@ -1,52 +1,117 @@
 type Query {
   getUser: User
-  getTodos: [Todo]!
-  getTodoById(id: Int!): Todo
+  getProjects: [Project]
+  getStories: [Story]
+  getBacklogItems: [BacklogItem]
+  getProjectById(id: ID!): Project
+  getStoryById(id: ID!): Story
+  getBacklogItemById(id: ID!): BacklogItem
 }
 
 type Mutation {
-  addTodo(input: AddTodoInput): Todo
-  updateTodo(id: Int, input: UpdateTodoInput): Todo
-  deleteTodo(id: Int): Todo
-  createUser(id: String, input: UserInput): User
-  updateUser(id: String, input: UserInput): User
+  createUser(input: CreateUserInput!): User
+  createProject(input: CreateProjectInput!): Project
+  createStory(input: CreateStoryInput!): Story
+  createBacklogItem(input: CreateBacklogItemInput!): BacklogItem
+  updateUser(id: ID!, input: UpdateUserInput!): User
+  updateProject(id: ID!, input: UpdateProjectInput!): Project
+  updateStory(id: ID!, input: UpdateStoryInput!): Story
+  updateBacklogItem(id: ID!, input: UpdateBacklogItemInput!): BacklogItem
+  deleteUser(id: ID!): Boolean
+  deleteProject(id: ID!): Boolean
+  deleteStory(id: ID!): Boolean
+  deleteBacklogItem(id: ID!): Boolean
 }
 
-input AddTodoInput {
-  title: String!
-  description: String
-}
-
-input UpdateTodoInput {
-  title: String
-  description: String
-  status: TodoStatus
-}
-
-input UserInput {
+input CreateUserInput {
+  sub: String!
   name: String!
+  color: String
 }
 
-enum TodoStatus {
-  done
-  pending
-}
-
-type Todo {
-  id: Int
-  createdAt: Date
-  updatedAt: Date
-  title: String
+input CreateProjectInput {
+  name: String!
   description: String
-  status: TodoStatus!
-  user: User
-  userId: String
+}
+
+input CreateStoryInput {
+  name: String!
+  description: String
+}
+
+input CreateBacklogItemInput {
+  name: String!
+  description: String
+  status: BacklogItemStatus
+}
+
+input UpdateProjectInput {
+  name: String!
+  description: String
+}
+
+input UpdateStoryInput {
+  name: String!
+  description: String
+}
+
+input UpdateBacklogItemInput {
+  name: String!
+  description: String
+  status: BacklogItemStatus!
+}
+
+input UpdateUserInput {
+  name: String!
+  color: String!
+}
+
+enum BacklogItemStatus {
+  pending
+  doing
+  done
+  stuck
+}
+
+type Project {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  startDate: Date
+  targetDate: Date
+  name: String!
+  description: String
+  stories: [Story]
+}
+
+type Story {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  startDate: Date
+  targetDate: Date
+  name: String!
+  description: String
+  backlogItems: [BacklogItem]
+}
+
+type BacklogItem {
+  id: ID!
+  createdAt: Date!
+  updatedAt: Date!
+  startDate: Date
+  targetDate: Date
+  name: String!
+  description: String
+  status: BacklogItemStatus!
 }
 
 type User {
-  id: String
-  name: String
-  todos: [Todo]
+  id: ID!
+  sub: String! @unique
+  name: String!
+  color: String! @unique
+  backlogItems: [BacklogItem]
 }
 
 scalar Date

@@ -13,6 +13,8 @@ RUN apt-get update && \
 COPY docker/docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
+RUN npm install -g @nestjs/cli@9.2.0
+
 WORKDIR /code
 RUN chmod 777 /code
 

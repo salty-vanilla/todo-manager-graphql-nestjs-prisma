@@ -1,0 +1,1719 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BacklogItemAvgAggregate {
+  id: Float
+  storyId: Float
+}
+
+type BacklogItemCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  startDate: Int!
+  targetDate: Int!
+  name: Int!
+  description: Int!
+  status: Int!
+  storyId: Int!
+  userId: Int!
+  _all: Int!
+}
+
+type BacklogItemMaxAggregate {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String
+  description: String
+  status: BacklogItemStatus
+  storyId: Int
+  userId: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum BacklogItemStatus {
+  pending
+  doing
+  done
+  stuck
+}
+
+type BacklogItemMinAggregate {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String
+  description: String
+  status: BacklogItemStatus
+  storyId: Int
+  userId: String
+}
+
+type BacklogItemSumAggregate {
+  id: Int
+  storyId: Int
+}
+
+type BacklogItem {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  status: BacklogItemStatus!
+  storyId: Int!
+  userId: String
+  story: Story!
+  user: User
+}
+
+type ProjectAvgAggregate {
+  id: Float
+  teamId: Float
+}
+
+type ProjectCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  startDate: Int!
+  targetDate: Int!
+  name: Int!
+  description: Int!
+  teamId: Int!
+  _all: Int!
+}
+
+type ProjectCount {
+  stories: Int!
+}
+
+type ProjectMaxAggregate {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String
+  description: String
+  teamId: Int
+}
+
+type ProjectMinAggregate {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String
+  description: String
+  teamId: Int
+}
+
+type ProjectSumAggregate {
+  id: Int
+  teamId: Int
+}
+
+type Project {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  teamId: Int!
+  stories: [Story!]
+  team: Team!
+  _count: ProjectCount!
+}
+
+type StoryAvgAggregate {
+  id: Float
+  projectId: Float
+}
+
+type StoryCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  startDate: Int!
+  targetDate: Int!
+  name: Int!
+  description: Int!
+  projectId: Int!
+  _all: Int!
+}
+
+type StoryCount {
+  backlogItems: Int!
+}
+
+type StoryMaxAggregate {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String
+  description: String
+  projectId: Int
+}
+
+type StoryMinAggregate {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String
+  description: String
+  projectId: Int
+}
+
+type StorySumAggregate {
+  id: Int
+  projectId: Int
+}
+
+type Story {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  projectId: Int!
+  backlogItems: [BacklogItem!]
+  project: Project!
+  _count: StoryCount!
+}
+
+type TeamAvgAggregate {
+  id: Float
+}
+
+type TeamCountAggregate {
+  id: Int!
+  createdAt: Int!
+  updatedAt: Int!
+  name: Int!
+  description: Int!
+  _all: Int!
+}
+
+type TeamCount {
+  members: Int!
+  projects: Int!
+}
+
+type TeamMaxAggregate {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  description: String
+}
+
+type TeamMinAggregate {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  description: String
+}
+
+type TeamSumAggregate {
+  id: Int
+}
+
+type Team {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  members: [TeamMember!]
+  projects: [Project!]
+  _count: TeamCount!
+}
+
+type TeamMemberAvgAggregate {
+  teamId: Float
+}
+
+type TeamMemberCountAggregate {
+  createdAt: Int!
+  updatedAt: Int!
+  teamId: Int!
+  userId: Int!
+  role: Int!
+  color: Int!
+  _all: Int!
+}
+
+type TeamMemberMaxAggregate {
+  createdAt: DateTime
+  updatedAt: DateTime
+  teamId: Int
+  userId: String
+  role: MemberRole
+  color: String
+}
+
+enum MemberRole {
+  admin
+  regular
+  pending
+}
+
+type TeamMemberMinAggregate {
+  createdAt: DateTime
+  updatedAt: DateTime
+  teamId: Int
+  userId: String
+  role: MemberRole
+  color: String
+}
+
+type TeamMemberSumAggregate {
+  teamId: Int
+}
+
+type TeamMember {
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  teamId: Int!
+  userId: String!
+  role: MemberRole!
+  color: String!
+  team: Team!
+  user: User!
+}
+
+type UserCountAggregate {
+  id: Int!
+  name: Int!
+  _all: Int!
+}
+
+type UserCount {
+  backlogItems: Int!
+  teams: Int!
+}
+
+type UserMaxAggregate {
+  id: String
+  name: String
+}
+
+type UserMinAggregate {
+  id: String
+  name: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  backlogItems: [BacklogItem!]
+  teams: [TeamMember!]
+  _count: UserCount!
+}
+
+type Query {
+  projects: [Project!]!
+  project(id: Int!): Project!
+  users(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
+  user(id: String!): User!
+  stories: [Story!]!
+  story(id: Int!): Story!
+  backlogItems(where: BacklogItemWhereInput, orderBy: [BacklogItemOrderByWithRelationInput!], cursor: BacklogItemWhereUniqueInput, take: Int, skip: Int, distinct: [BacklogItemScalarFieldEnum!]): [BacklogItem!]!
+  backlogItem(id: Int!): BacklogItem!
+  teams: [Team!]!
+  team(id: Int!): Team!
+  teamMembers: [TeamMember!]!
+  teamMember(id: Int!): TeamMember!
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  backlogItems: BacklogItemListRelationFilter
+  teams: TeamMemberListRelationFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input BacklogItemListRelationFilter {
+  every: BacklogItemWhereInput
+  some: BacklogItemWhereInput
+  none: BacklogItemWhereInput
+}
+
+input BacklogItemWhereInput {
+  AND: [BacklogItemWhereInput!]
+  OR: [BacklogItemWhereInput!]
+  NOT: [BacklogItemWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  status: EnumBacklogItemStatusFilter
+  storyId: IntFilter
+  userId: StringNullableFilter
+  story: StoryRelationFilter
+  user: UserRelationFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input EnumBacklogItemStatusFilter {
+  equals: BacklogItemStatus
+  in: [BacklogItemStatus!]
+  notIn: [BacklogItemStatus!]
+  not: NestedEnumBacklogItemStatusFilter
+}
+
+input NestedEnumBacklogItemStatusFilter {
+  equals: BacklogItemStatus
+  in: [BacklogItemStatus!]
+  notIn: [BacklogItemStatus!]
+  not: NestedEnumBacklogItemStatusFilter
+}
+
+input StoryRelationFilter {
+  is: StoryWhereInput
+  isNot: StoryWhereInput
+}
+
+input StoryWhereInput {
+  AND: [StoryWhereInput!]
+  OR: [StoryWhereInput!]
+  NOT: [StoryWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  projectId: IntFilter
+  backlogItems: BacklogItemListRelationFilter
+  project: ProjectRelationFilter
+}
+
+input ProjectRelationFilter {
+  is: ProjectWhereInput
+  isNot: ProjectWhereInput
+}
+
+input ProjectWhereInput {
+  AND: [ProjectWhereInput!]
+  OR: [ProjectWhereInput!]
+  NOT: [ProjectWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  teamId: IntFilter
+  stories: StoryListRelationFilter
+  team: TeamRelationFilter
+}
+
+input StoryListRelationFilter {
+  every: StoryWhereInput
+  some: StoryWhereInput
+  none: StoryWhereInput
+}
+
+input TeamRelationFilter {
+  is: TeamWhereInput
+  isNot: TeamWhereInput
+}
+
+input TeamWhereInput {
+  AND: [TeamWhereInput!]
+  OR: [TeamWhereInput!]
+  NOT: [TeamWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  name: StringFilter
+  description: StringNullableFilter
+  members: TeamMemberListRelationFilter
+  projects: ProjectListRelationFilter
+}
+
+input TeamMemberListRelationFilter {
+  every: TeamMemberWhereInput
+  some: TeamMemberWhereInput
+  none: TeamMemberWhereInput
+}
+
+input TeamMemberWhereInput {
+  AND: [TeamMemberWhereInput!]
+  OR: [TeamMemberWhereInput!]
+  NOT: [TeamMemberWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  teamId: IntFilter
+  userId: StringFilter
+  role: EnumMemberRoleFilter
+  color: StringFilter
+  team: TeamRelationFilter
+  user: UserRelationFilter
+}
+
+input EnumMemberRoleFilter {
+  equals: MemberRole
+  in: [MemberRole!]
+  notIn: [MemberRole!]
+  not: NestedEnumMemberRoleFilter
+}
+
+input NestedEnumMemberRoleFilter {
+  equals: MemberRole
+  in: [MemberRole!]
+  notIn: [MemberRole!]
+  not: NestedEnumMemberRoleFilter
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input ProjectListRelationFilter {
+  every: ProjectWhereInput
+  some: ProjectWhereInput
+  none: ProjectWhereInput
+}
+
+input UserOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  backlogItems: BacklogItemOrderByRelationAggregateInput
+  teams: TeamMemberOrderByRelationAggregateInput
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input BacklogItemOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input TeamMemberOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input UserWhereUniqueInput {
+  id: String
+}
+
+enum UserScalarFieldEnum {
+  id
+  name
+}
+
+input BacklogItemOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  startDate: SortOrder
+  targetDate: SortOrder
+  name: SortOrder
+  description: SortOrder
+  status: SortOrder
+  storyId: SortOrder
+  userId: SortOrder
+  story: StoryOrderByWithRelationInput
+  user: UserOrderByWithRelationInput
+}
+
+input StoryOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  startDate: SortOrder
+  targetDate: SortOrder
+  name: SortOrder
+  description: SortOrder
+  projectId: SortOrder
+  backlogItems: BacklogItemOrderByRelationAggregateInput
+  project: ProjectOrderByWithRelationInput
+}
+
+input ProjectOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  startDate: SortOrder
+  targetDate: SortOrder
+  name: SortOrder
+  description: SortOrder
+  teamId: SortOrder
+  stories: StoryOrderByRelationAggregateInput
+  team: TeamOrderByWithRelationInput
+}
+
+input StoryOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input TeamOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  description: SortOrder
+  members: TeamMemberOrderByRelationAggregateInput
+  projects: ProjectOrderByRelationAggregateInput
+}
+
+input ProjectOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input BacklogItemWhereUniqueInput {
+  id: Int
+}
+
+enum BacklogItemScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  startDate
+  targetDate
+  name
+  description
+  status
+  storyId
+  userId
+}
+
+type Mutation {
+  createProject(projectCreateInput: ProjectCreateInput!): Project!
+  updateProject(id: Int!, updateProjectInput: ProjectUpdateInput!): Project!
+  removeProject(id: Int!): Project!
+  createUser(createUserInput: UserCreateInput!): User!
+  updateUser(updateUserInput: UserUpdateInput!): User!
+  removeUser(id: String!): User!
+  createStory(createStoryInput: StoryCreateInput!): Story!
+  updateStory(id: Int!, updateStoryInput: StoryUpdateInput!): Story!
+  removeStory(id: Int!): Story!
+  createBacklogItem(createBacklogItemInput: BacklogItemCreateInput!): BacklogItem!
+  updateBacklogItem(id: Int!, updateBacklogItemInput: BacklogItemUpdateInput!): BacklogItem!
+  removeBacklogItem(id: Int!): BacklogItem!
+  createTeam(teamCreateInput: TeamCreateInput!): Team!
+  updateTeam(id: Int!, teamUpdateInput: TeamUpdateInput!): Team!
+  removeTeam(id: Int!): Team!
+  createTeamMember(teamMemberCreateInput: TeamMemberCreateInput!): TeamMember!
+  updateTeamMember(teamId: Int!, userd: String!, teamMemberUpdateInput: TeamMemberUpdateInput!): TeamMember!
+  removeTeamMember(id: Int!): TeamMember!
+}
+
+input ProjectCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  stories: StoryCreateNestedManyWithoutProjectInput
+  team: TeamCreateNestedOneWithoutProjectsInput!
+}
+
+input StoryCreateNestedManyWithoutProjectInput {
+  create: [StoryCreateWithoutProjectInput!]
+  connectOrCreate: [StoryCreateOrConnectWithoutProjectInput!]
+  createMany: StoryCreateManyProjectInputEnvelope
+  connect: [StoryWhereUniqueInput!]
+}
+
+input StoryCreateWithoutProjectInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  backlogItems: BacklogItemCreateNestedManyWithoutStoryInput
+}
+
+input BacklogItemCreateNestedManyWithoutStoryInput {
+  create: [BacklogItemCreateWithoutStoryInput!]
+  connectOrCreate: [BacklogItemCreateOrConnectWithoutStoryInput!]
+  createMany: BacklogItemCreateManyStoryInputEnvelope
+  connect: [BacklogItemWhereUniqueInput!]
+}
+
+input BacklogItemCreateWithoutStoryInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  status: BacklogItemStatus
+  user: UserCreateNestedOneWithoutBacklogItemsInput
+}
+
+input UserCreateNestedOneWithoutBacklogItemsInput {
+  create: UserCreateWithoutBacklogItemsInput
+  connectOrCreate: UserCreateOrConnectWithoutBacklogItemsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutBacklogItemsInput {
+  id: String!
+  name: String!
+  teams: TeamMemberCreateNestedManyWithoutUserInput
+}
+
+input TeamMemberCreateNestedManyWithoutUserInput {
+  create: [TeamMemberCreateWithoutUserInput!]
+  connectOrCreate: [TeamMemberCreateOrConnectWithoutUserInput!]
+  createMany: TeamMemberCreateManyUserInputEnvelope
+  connect: [TeamMemberWhereUniqueInput!]
+}
+
+input TeamMemberCreateWithoutUserInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  role: MemberRole
+  color: String!
+  team: TeamCreateNestedOneWithoutMembersInput!
+}
+
+input TeamCreateNestedOneWithoutMembersInput {
+  create: TeamCreateWithoutMembersInput
+  connectOrCreate: TeamCreateOrConnectWithoutMembersInput
+  connect: TeamWhereUniqueInput
+}
+
+input TeamCreateWithoutMembersInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  description: String
+  projects: ProjectCreateNestedManyWithoutTeamInput
+}
+
+input ProjectCreateNestedManyWithoutTeamInput {
+  create: [ProjectCreateWithoutTeamInput!]
+  connectOrCreate: [ProjectCreateOrConnectWithoutTeamInput!]
+  createMany: ProjectCreateManyTeamInputEnvelope
+  connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateWithoutTeamInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  stories: StoryCreateNestedManyWithoutProjectInput
+}
+
+input ProjectCreateOrConnectWithoutTeamInput {
+  where: ProjectWhereUniqueInput!
+  create: ProjectCreateWithoutTeamInput!
+}
+
+input ProjectWhereUniqueInput {
+  id: Int
+}
+
+input ProjectCreateManyTeamInputEnvelope {
+  data: [ProjectCreateManyTeamInput!]!
+  skipDuplicates: Boolean
+}
+
+input ProjectCreateManyTeamInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+}
+
+input TeamCreateOrConnectWithoutMembersInput {
+  where: TeamWhereUniqueInput!
+  create: TeamCreateWithoutMembersInput!
+}
+
+input TeamWhereUniqueInput {
+  id: Int
+}
+
+input TeamMemberCreateOrConnectWithoutUserInput {
+  where: TeamMemberWhereUniqueInput!
+  create: TeamMemberCreateWithoutUserInput!
+}
+
+input TeamMemberWhereUniqueInput {
+  color: String
+  teamId_userId: TeamMemberTeamIdUserIdCompoundUniqueInput
+}
+
+input TeamMemberTeamIdUserIdCompoundUniqueInput {
+  teamId: Int!
+  userId: String!
+}
+
+input TeamMemberCreateManyUserInputEnvelope {
+  data: [TeamMemberCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input TeamMemberCreateManyUserInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  teamId: Int!
+  role: MemberRole
+  color: String!
+}
+
+input UserCreateOrConnectWithoutBacklogItemsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutBacklogItemsInput!
+}
+
+input BacklogItemCreateOrConnectWithoutStoryInput {
+  where: BacklogItemWhereUniqueInput!
+  create: BacklogItemCreateWithoutStoryInput!
+}
+
+input BacklogItemCreateManyStoryInputEnvelope {
+  data: [BacklogItemCreateManyStoryInput!]!
+  skipDuplicates: Boolean
+}
+
+input BacklogItemCreateManyStoryInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  status: BacklogItemStatus
+  userId: String
+}
+
+input StoryCreateOrConnectWithoutProjectInput {
+  where: StoryWhereUniqueInput!
+  create: StoryCreateWithoutProjectInput!
+}
+
+input StoryWhereUniqueInput {
+  id: Int
+}
+
+input StoryCreateManyProjectInputEnvelope {
+  data: [StoryCreateManyProjectInput!]!
+  skipDuplicates: Boolean
+}
+
+input StoryCreateManyProjectInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+}
+
+input TeamCreateNestedOneWithoutProjectsInput {
+  create: TeamCreateWithoutProjectsInput
+  connectOrCreate: TeamCreateOrConnectWithoutProjectsInput
+  connect: TeamWhereUniqueInput
+}
+
+input TeamCreateWithoutProjectsInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  description: String
+  members: TeamMemberCreateNestedManyWithoutTeamInput
+}
+
+input TeamMemberCreateNestedManyWithoutTeamInput {
+  create: [TeamMemberCreateWithoutTeamInput!]
+  connectOrCreate: [TeamMemberCreateOrConnectWithoutTeamInput!]
+  createMany: TeamMemberCreateManyTeamInputEnvelope
+  connect: [TeamMemberWhereUniqueInput!]
+}
+
+input TeamMemberCreateWithoutTeamInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  role: MemberRole
+  color: String!
+  user: UserCreateNestedOneWithoutTeamsInput!
+}
+
+input UserCreateNestedOneWithoutTeamsInput {
+  create: UserCreateWithoutTeamsInput
+  connectOrCreate: UserCreateOrConnectWithoutTeamsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutTeamsInput {
+  id: String!
+  name: String!
+  backlogItems: BacklogItemCreateNestedManyWithoutUserInput
+}
+
+input BacklogItemCreateNestedManyWithoutUserInput {
+  create: [BacklogItemCreateWithoutUserInput!]
+  connectOrCreate: [BacklogItemCreateOrConnectWithoutUserInput!]
+  createMany: BacklogItemCreateManyUserInputEnvelope
+  connect: [BacklogItemWhereUniqueInput!]
+}
+
+input BacklogItemCreateWithoutUserInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  status: BacklogItemStatus
+  story: StoryCreateNestedOneWithoutBacklogItemsInput!
+}
+
+input StoryCreateNestedOneWithoutBacklogItemsInput {
+  create: StoryCreateWithoutBacklogItemsInput
+  connectOrCreate: StoryCreateOrConnectWithoutBacklogItemsInput
+  connect: StoryWhereUniqueInput
+}
+
+input StoryCreateWithoutBacklogItemsInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  project: ProjectCreateNestedOneWithoutStoriesInput!
+}
+
+input ProjectCreateNestedOneWithoutStoriesInput {
+  create: ProjectCreateWithoutStoriesInput
+  connectOrCreate: ProjectCreateOrConnectWithoutStoriesInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectCreateWithoutStoriesInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  team: TeamCreateNestedOneWithoutProjectsInput!
+}
+
+input ProjectCreateOrConnectWithoutStoriesInput {
+  where: ProjectWhereUniqueInput!
+  create: ProjectCreateWithoutStoriesInput!
+}
+
+input StoryCreateOrConnectWithoutBacklogItemsInput {
+  where: StoryWhereUniqueInput!
+  create: StoryCreateWithoutBacklogItemsInput!
+}
+
+input BacklogItemCreateOrConnectWithoutUserInput {
+  where: BacklogItemWhereUniqueInput!
+  create: BacklogItemCreateWithoutUserInput!
+}
+
+input BacklogItemCreateManyUserInputEnvelope {
+  data: [BacklogItemCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input BacklogItemCreateManyUserInput {
+  id: Int
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  status: BacklogItemStatus
+  storyId: Int!
+}
+
+input UserCreateOrConnectWithoutTeamsInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutTeamsInput!
+}
+
+input TeamMemberCreateOrConnectWithoutTeamInput {
+  where: TeamMemberWhereUniqueInput!
+  create: TeamMemberCreateWithoutTeamInput!
+}
+
+input TeamMemberCreateManyTeamInputEnvelope {
+  data: [TeamMemberCreateManyTeamInput!]!
+  skipDuplicates: Boolean
+}
+
+input TeamMemberCreateManyTeamInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  userId: String!
+  role: MemberRole
+  color: String!
+}
+
+input TeamCreateOrConnectWithoutProjectsInput {
+  where: TeamWhereUniqueInput!
+  create: TeamCreateWithoutProjectsInput!
+}
+
+input ProjectUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  stories: StoryUpdateManyWithoutProjectNestedInput
+  team: TeamUpdateOneRequiredWithoutProjectsNestedInput
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
+input StoryUpdateManyWithoutProjectNestedInput {
+  create: [StoryCreateWithoutProjectInput!]
+  connectOrCreate: [StoryCreateOrConnectWithoutProjectInput!]
+  upsert: [StoryUpsertWithWhereUniqueWithoutProjectInput!]
+  createMany: StoryCreateManyProjectInputEnvelope
+  set: [StoryWhereUniqueInput!]
+  disconnect: [StoryWhereUniqueInput!]
+  delete: [StoryWhereUniqueInput!]
+  connect: [StoryWhereUniqueInput!]
+  update: [StoryUpdateWithWhereUniqueWithoutProjectInput!]
+  updateMany: [StoryUpdateManyWithWhereWithoutProjectInput!]
+  deleteMany: [StoryScalarWhereInput!]
+}
+
+input StoryUpsertWithWhereUniqueWithoutProjectInput {
+  where: StoryWhereUniqueInput!
+  update: StoryUpdateWithoutProjectInput!
+  create: StoryCreateWithoutProjectInput!
+}
+
+input StoryUpdateWithoutProjectInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  backlogItems: BacklogItemUpdateManyWithoutStoryNestedInput
+}
+
+input BacklogItemUpdateManyWithoutStoryNestedInput {
+  create: [BacklogItemCreateWithoutStoryInput!]
+  connectOrCreate: [BacklogItemCreateOrConnectWithoutStoryInput!]
+  upsert: [BacklogItemUpsertWithWhereUniqueWithoutStoryInput!]
+  createMany: BacklogItemCreateManyStoryInputEnvelope
+  set: [BacklogItemWhereUniqueInput!]
+  disconnect: [BacklogItemWhereUniqueInput!]
+  delete: [BacklogItemWhereUniqueInput!]
+  connect: [BacklogItemWhereUniqueInput!]
+  update: [BacklogItemUpdateWithWhereUniqueWithoutStoryInput!]
+  updateMany: [BacklogItemUpdateManyWithWhereWithoutStoryInput!]
+  deleteMany: [BacklogItemScalarWhereInput!]
+}
+
+input BacklogItemUpsertWithWhereUniqueWithoutStoryInput {
+  where: BacklogItemWhereUniqueInput!
+  update: BacklogItemUpdateWithoutStoryInput!
+  create: BacklogItemCreateWithoutStoryInput!
+}
+
+input BacklogItemUpdateWithoutStoryInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  status: EnumBacklogItemStatusFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutBacklogItemsNestedInput
+}
+
+input EnumBacklogItemStatusFieldUpdateOperationsInput {
+  set: BacklogItemStatus
+}
+
+input UserUpdateOneWithoutBacklogItemsNestedInput {
+  create: UserCreateWithoutBacklogItemsInput
+  connectOrCreate: UserCreateOrConnectWithoutBacklogItemsInput
+  upsert: UserUpsertWithoutBacklogItemsInput
+  disconnect: Boolean
+  delete: Boolean
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutBacklogItemsInput
+}
+
+input UserUpsertWithoutBacklogItemsInput {
+  update: UserUpdateWithoutBacklogItemsInput!
+  create: UserCreateWithoutBacklogItemsInput!
+}
+
+input UserUpdateWithoutBacklogItemsInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  teams: TeamMemberUpdateManyWithoutUserNestedInput
+}
+
+input TeamMemberUpdateManyWithoutUserNestedInput {
+  create: [TeamMemberCreateWithoutUserInput!]
+  connectOrCreate: [TeamMemberCreateOrConnectWithoutUserInput!]
+  upsert: [TeamMemberUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: TeamMemberCreateManyUserInputEnvelope
+  set: [TeamMemberWhereUniqueInput!]
+  disconnect: [TeamMemberWhereUniqueInput!]
+  delete: [TeamMemberWhereUniqueInput!]
+  connect: [TeamMemberWhereUniqueInput!]
+  update: [TeamMemberUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [TeamMemberUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [TeamMemberScalarWhereInput!]
+}
+
+input TeamMemberUpsertWithWhereUniqueWithoutUserInput {
+  where: TeamMemberWhereUniqueInput!
+  update: TeamMemberUpdateWithoutUserInput!
+  create: TeamMemberCreateWithoutUserInput!
+}
+
+input TeamMemberUpdateWithoutUserInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  role: EnumMemberRoleFieldUpdateOperationsInput
+  color: StringFieldUpdateOperationsInput
+  team: TeamUpdateOneRequiredWithoutMembersNestedInput
+}
+
+input EnumMemberRoleFieldUpdateOperationsInput {
+  set: MemberRole
+}
+
+input TeamUpdateOneRequiredWithoutMembersNestedInput {
+  create: TeamCreateWithoutMembersInput
+  connectOrCreate: TeamCreateOrConnectWithoutMembersInput
+  upsert: TeamUpsertWithoutMembersInput
+  connect: TeamWhereUniqueInput
+  update: TeamUpdateWithoutMembersInput
+}
+
+input TeamUpsertWithoutMembersInput {
+  update: TeamUpdateWithoutMembersInput!
+  create: TeamCreateWithoutMembersInput!
+}
+
+input TeamUpdateWithoutMembersInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  projects: ProjectUpdateManyWithoutTeamNestedInput
+}
+
+input ProjectUpdateManyWithoutTeamNestedInput {
+  create: [ProjectCreateWithoutTeamInput!]
+  connectOrCreate: [ProjectCreateOrConnectWithoutTeamInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutTeamInput!]
+  createMany: ProjectCreateManyTeamInputEnvelope
+  set: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  delete: [ProjectWhereUniqueInput!]
+  connect: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutTeamInput!]
+  updateMany: [ProjectUpdateManyWithWhereWithoutTeamInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+}
+
+input ProjectUpsertWithWhereUniqueWithoutTeamInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutTeamInput!
+  create: ProjectCreateWithoutTeamInput!
+}
+
+input ProjectUpdateWithoutTeamInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  stories: StoryUpdateManyWithoutProjectNestedInput
+}
+
+input ProjectUpdateWithWhereUniqueWithoutTeamInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutTeamInput!
+}
+
+input ProjectUpdateManyWithWhereWithoutTeamInput {
+  where: ProjectScalarWhereInput!
+  data: ProjectUpdateManyMutationInput!
+}
+
+input ProjectScalarWhereInput {
+  AND: [ProjectScalarWhereInput!]
+  OR: [ProjectScalarWhereInput!]
+  NOT: [ProjectScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  teamId: IntFilter
+}
+
+input ProjectUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+}
+
+input TeamMemberUpdateWithWhereUniqueWithoutUserInput {
+  where: TeamMemberWhereUniqueInput!
+  data: TeamMemberUpdateWithoutUserInput!
+}
+
+input TeamMemberUpdateManyWithWhereWithoutUserInput {
+  where: TeamMemberScalarWhereInput!
+  data: TeamMemberUpdateManyMutationInput!
+}
+
+input TeamMemberScalarWhereInput {
+  AND: [TeamMemberScalarWhereInput!]
+  OR: [TeamMemberScalarWhereInput!]
+  NOT: [TeamMemberScalarWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  teamId: IntFilter
+  userId: StringFilter
+  role: EnumMemberRoleFilter
+  color: StringFilter
+}
+
+input TeamMemberUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  role: EnumMemberRoleFieldUpdateOperationsInput
+  color: StringFieldUpdateOperationsInput
+}
+
+input BacklogItemUpdateWithWhereUniqueWithoutStoryInput {
+  where: BacklogItemWhereUniqueInput!
+  data: BacklogItemUpdateWithoutStoryInput!
+}
+
+input BacklogItemUpdateManyWithWhereWithoutStoryInput {
+  where: BacklogItemScalarWhereInput!
+  data: BacklogItemUpdateManyMutationInput!
+}
+
+input BacklogItemScalarWhereInput {
+  AND: [BacklogItemScalarWhereInput!]
+  OR: [BacklogItemScalarWhereInput!]
+  NOT: [BacklogItemScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  status: EnumBacklogItemStatusFilter
+  storyId: IntFilter
+  userId: StringNullableFilter
+}
+
+input BacklogItemUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  status: EnumBacklogItemStatusFieldUpdateOperationsInput
+}
+
+input StoryUpdateWithWhereUniqueWithoutProjectInput {
+  where: StoryWhereUniqueInput!
+  data: StoryUpdateWithoutProjectInput!
+}
+
+input StoryUpdateManyWithWhereWithoutProjectInput {
+  where: StoryScalarWhereInput!
+  data: StoryUpdateManyMutationInput!
+}
+
+input StoryScalarWhereInput {
+  AND: [StoryScalarWhereInput!]
+  OR: [StoryScalarWhereInput!]
+  NOT: [StoryScalarWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  projectId: IntFilter
+}
+
+input StoryUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+}
+
+input TeamUpdateOneRequiredWithoutProjectsNestedInput {
+  create: TeamCreateWithoutProjectsInput
+  connectOrCreate: TeamCreateOrConnectWithoutProjectsInput
+  upsert: TeamUpsertWithoutProjectsInput
+  connect: TeamWhereUniqueInput
+  update: TeamUpdateWithoutProjectsInput
+}
+
+input TeamUpsertWithoutProjectsInput {
+  update: TeamUpdateWithoutProjectsInput!
+  create: TeamCreateWithoutProjectsInput!
+}
+
+input TeamUpdateWithoutProjectsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  members: TeamMemberUpdateManyWithoutTeamNestedInput
+}
+
+input TeamMemberUpdateManyWithoutTeamNestedInput {
+  create: [TeamMemberCreateWithoutTeamInput!]
+  connectOrCreate: [TeamMemberCreateOrConnectWithoutTeamInput!]
+  upsert: [TeamMemberUpsertWithWhereUniqueWithoutTeamInput!]
+  createMany: TeamMemberCreateManyTeamInputEnvelope
+  set: [TeamMemberWhereUniqueInput!]
+  disconnect: [TeamMemberWhereUniqueInput!]
+  delete: [TeamMemberWhereUniqueInput!]
+  connect: [TeamMemberWhereUniqueInput!]
+  update: [TeamMemberUpdateWithWhereUniqueWithoutTeamInput!]
+  updateMany: [TeamMemberUpdateManyWithWhereWithoutTeamInput!]
+  deleteMany: [TeamMemberScalarWhereInput!]
+}
+
+input TeamMemberUpsertWithWhereUniqueWithoutTeamInput {
+  where: TeamMemberWhereUniqueInput!
+  update: TeamMemberUpdateWithoutTeamInput!
+  create: TeamMemberCreateWithoutTeamInput!
+}
+
+input TeamMemberUpdateWithoutTeamInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  role: EnumMemberRoleFieldUpdateOperationsInput
+  color: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutTeamsNestedInput
+}
+
+input UserUpdateOneRequiredWithoutTeamsNestedInput {
+  create: UserCreateWithoutTeamsInput
+  connectOrCreate: UserCreateOrConnectWithoutTeamsInput
+  upsert: UserUpsertWithoutTeamsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutTeamsInput
+}
+
+input UserUpsertWithoutTeamsInput {
+  update: UserUpdateWithoutTeamsInput!
+  create: UserCreateWithoutTeamsInput!
+}
+
+input UserUpdateWithoutTeamsInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  backlogItems: BacklogItemUpdateManyWithoutUserNestedInput
+}
+
+input BacklogItemUpdateManyWithoutUserNestedInput {
+  create: [BacklogItemCreateWithoutUserInput!]
+  connectOrCreate: [BacklogItemCreateOrConnectWithoutUserInput!]
+  upsert: [BacklogItemUpsertWithWhereUniqueWithoutUserInput!]
+  createMany: BacklogItemCreateManyUserInputEnvelope
+  set: [BacklogItemWhereUniqueInput!]
+  disconnect: [BacklogItemWhereUniqueInput!]
+  delete: [BacklogItemWhereUniqueInput!]
+  connect: [BacklogItemWhereUniqueInput!]
+  update: [BacklogItemUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [BacklogItemUpdateManyWithWhereWithoutUserInput!]
+  deleteMany: [BacklogItemScalarWhereInput!]
+}
+
+input BacklogItemUpsertWithWhereUniqueWithoutUserInput {
+  where: BacklogItemWhereUniqueInput!
+  update: BacklogItemUpdateWithoutUserInput!
+  create: BacklogItemCreateWithoutUserInput!
+}
+
+input BacklogItemUpdateWithoutUserInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  status: EnumBacklogItemStatusFieldUpdateOperationsInput
+  story: StoryUpdateOneRequiredWithoutBacklogItemsNestedInput
+}
+
+input StoryUpdateOneRequiredWithoutBacklogItemsNestedInput {
+  create: StoryCreateWithoutBacklogItemsInput
+  connectOrCreate: StoryCreateOrConnectWithoutBacklogItemsInput
+  upsert: StoryUpsertWithoutBacklogItemsInput
+  connect: StoryWhereUniqueInput
+  update: StoryUpdateWithoutBacklogItemsInput
+}
+
+input StoryUpsertWithoutBacklogItemsInput {
+  update: StoryUpdateWithoutBacklogItemsInput!
+  create: StoryCreateWithoutBacklogItemsInput!
+}
+
+input StoryUpdateWithoutBacklogItemsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  project: ProjectUpdateOneRequiredWithoutStoriesNestedInput
+}
+
+input ProjectUpdateOneRequiredWithoutStoriesNestedInput {
+  create: ProjectCreateWithoutStoriesInput
+  connectOrCreate: ProjectCreateOrConnectWithoutStoriesInput
+  upsert: ProjectUpsertWithoutStoriesInput
+  connect: ProjectWhereUniqueInput
+  update: ProjectUpdateWithoutStoriesInput
+}
+
+input ProjectUpsertWithoutStoriesInput {
+  update: ProjectUpdateWithoutStoriesInput!
+  create: ProjectCreateWithoutStoriesInput!
+}
+
+input ProjectUpdateWithoutStoriesInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  team: TeamUpdateOneRequiredWithoutProjectsNestedInput
+}
+
+input BacklogItemUpdateWithWhereUniqueWithoutUserInput {
+  where: BacklogItemWhereUniqueInput!
+  data: BacklogItemUpdateWithoutUserInput!
+}
+
+input BacklogItemUpdateManyWithWhereWithoutUserInput {
+  where: BacklogItemScalarWhereInput!
+  data: BacklogItemUpdateManyMutationInput!
+}
+
+input TeamMemberUpdateWithWhereUniqueWithoutTeamInput {
+  where: TeamMemberWhereUniqueInput!
+  data: TeamMemberUpdateWithoutTeamInput!
+}
+
+input TeamMemberUpdateManyWithWhereWithoutTeamInput {
+  where: TeamMemberScalarWhereInput!
+  data: TeamMemberUpdateManyMutationInput!
+}
+
+input UserCreateInput {
+  id: String!
+  name: String!
+  backlogItems: BacklogItemCreateNestedManyWithoutUserInput
+  teams: TeamMemberCreateNestedManyWithoutUserInput
+}
+
+input UserUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  backlogItems: BacklogItemUpdateManyWithoutUserNestedInput
+  teams: TeamMemberUpdateManyWithoutUserNestedInput
+}
+
+input StoryCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  backlogItems: BacklogItemCreateNestedManyWithoutStoryInput
+  project: ProjectCreateNestedOneWithoutStoriesInput!
+}
+
+input StoryUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  backlogItems: BacklogItemUpdateManyWithoutStoryNestedInput
+  project: ProjectUpdateOneRequiredWithoutStoriesNestedInput
+}
+
+input BacklogItemCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  startDate: DateTime
+  targetDate: DateTime
+  name: String!
+  description: String
+  status: BacklogItemStatus
+  story: StoryCreateNestedOneWithoutBacklogItemsInput!
+  user: UserCreateNestedOneWithoutBacklogItemsInput
+}
+
+input BacklogItemUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  targetDate: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  status: EnumBacklogItemStatusFieldUpdateOperationsInput
+  story: StoryUpdateOneRequiredWithoutBacklogItemsNestedInput
+  user: UserUpdateOneWithoutBacklogItemsNestedInput
+}
+
+input TeamCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  description: String
+  members: TeamMemberCreateNestedManyWithoutTeamInput
+  projects: ProjectCreateNestedManyWithoutTeamInput
+}
+
+input TeamUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  members: TeamMemberUpdateManyWithoutTeamNestedInput
+  projects: ProjectUpdateManyWithoutTeamNestedInput
+}
+
+input TeamMemberCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  role: MemberRole
+  color: String!
+  team: TeamCreateNestedOneWithoutMembersInput!
+  user: UserCreateNestedOneWithoutTeamsInput!
+}
+
+input TeamMemberUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  role: EnumMemberRoleFieldUpdateOperationsInput
+  color: StringFieldUpdateOperationsInput
+  team: TeamUpdateOneRequiredWithoutMembersNestedInput
+  user: UserUpdateOneRequiredWithoutTeamsNestedInput
+}

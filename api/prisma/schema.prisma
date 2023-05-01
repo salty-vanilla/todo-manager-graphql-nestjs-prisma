@@ -3,6 +3,14 @@
 
 generator client {
   provider = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
+}
+
+generator nestgraphql {
+  provider = "prisma-nestjs-graphql"
+  output = "../src/@generated/prisma-nestjs-graphql"
+  outputFilePattern = "{model}/dto/{name}.{type}.ts"
+  emitSingle = true
 }
 
 datasource db {
@@ -10,24 +18,85 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum TodoStatus {
+enum BacklogItemStatus {
+  pending
+  doing
   done
+  stuck
+}
+
+enum MemberRole {
+  admin
+  regular
   pending
 }
 
-model Todo {
+model Project {
   id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title String @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  startDate DateTime?
+  targetDate DateTime?
+  name String @db.VarChar(255)
   description String?
-  status TodoStatus @default(pending)
-  user User @relation(fields: [userId], references: [id])
-  userId String
+  stories Story[]
+  teamId Int
+  team Team @relation(fields: [teamId], references: [id])
+}
+
+model Story {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  startDate DateTime?
+  targetDate DateTime?
+  name String @db.VarChar(255)
+  description String?
+  backlogItems BacklogItem[]
+  project Project @relation(fields: [projectId], references: [id])
+  projectId Int
+}
+
+model BacklogItem {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  startDate DateTime?
+  targetDate DateTime?
+  name String @db.VarChar(255)
+  description String?
+  status BacklogItemStatus @default(pending)
+  story Story @relation(fields: [storyId], references: [id])
+  storyId Int
+  user User? @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model User {
   id String @id @unique
-  name String?
-  todos Todo[]
+  name String
+  backlogItems BacklogItem[]
+  teams TeamMember[]
+}
+
+model Team {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  name String @db.VarChar(255)
+  description String?
+  members TeamMember[]
+  projects Project[]
+}
+
+model TeamMember {
+  @@id([teamId, userId])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  teamId Int
+  team Team @relation(fields: [teamId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  role MemberRole @default(pending)
+  color String @unique
 }
