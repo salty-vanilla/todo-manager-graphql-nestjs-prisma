@@ -1,6 +1,6 @@
 import { prisma } from '@lib/prisma';
 import { Injectable } from '@nestjs/common';
-import { TeamCreateInput, TeamUpdateInput } from 'src/types/prisma-nestjs-graphql';
+import { FindManyTeamArgs, TeamCreateInput, TeamUpdateInput } from 'src/types/prisma-nestjs-graphql';
 
 @Injectable()
 export class TeamsService {
@@ -11,8 +11,9 @@ export class TeamsService {
     return team;
   }
 
-  async findAll() {
-    const teams = await prisma.team.findMany();
+  async findAll(findManyTeamArgs: FindManyTeamArgs) {
+    const teams = await prisma.team.findMany(findManyTeamArgs);
+    console.log(teams);
     return teams;
   }
 

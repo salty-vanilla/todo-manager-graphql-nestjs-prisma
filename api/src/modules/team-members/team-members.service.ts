@@ -1,6 +1,6 @@
 import { prisma } from '@lib/prisma';
 import { Injectable } from '@nestjs/common';
-import { TeamMemberCreateInput, TeamMemberUpdateInput } from 'src/types/prisma-nestjs-graphql';
+import { FindManyTeamMemberArgs, TeamMemberCreateInput, TeamMemberUpdateInput } from 'src/types/prisma-nestjs-graphql';
 import internal from 'stream';
 
 @Injectable()
@@ -12,12 +12,24 @@ export class TeamMembersService {
     return teamMember;
   }
 
-  findAll() {
-    return `This action returns all teamMembers`;
+  async findAll(findManyTeamMemberArgs: FindManyTeamMemberArgs) {
+    const teamMembers = await prisma.teamMember.findMany(findManyTeamMemberArgs)
+    return teamMembers;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} teamMember`;
+  async findOne(
+    teamId: number,
+    userId: string
+  ) {
+    const teamMember = await prisma.teamMember.findUnique({
+      where: {
+        teamId_userId: {
+          teamId: teamId,
+          userId: userId,
+        }
+      }
+    }) 
+    return teamMember;
   }
 
   async update(

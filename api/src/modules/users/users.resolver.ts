@@ -1,12 +1,16 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-import { User, UserCreateInput, UserUpdateInput, FindManyUserArgs } from 'src/types/prisma-nestjs-graphql';
+import { TeamsService } from '@modules/teams/teams.service';
+import { User, UserCreateInput, UserUpdateInput, FindManyUserArgs, Team, FindManyTeamArgs, StringFilter } from 'src/types/prisma-nestjs-graphql';
 import { UseGuards } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly teamsService: TeamsService,
+  ) {}
 
   @Mutation(() => User)
   @UseGuards(JwtGuard)
@@ -33,4 +37,24 @@ export class UsersResolver {
   removeUser(@Args('id', { type: () => String }) id: string) {
     return this.usersService.remove(id);
   }
+
+  @ResolveField('teams', () => [Team])
+  findTeams(
+    @Parent() user: User,
+    @Args({nullable: true}) findManyTeamArgs: FindManyTeamArgs
+  ){
+    let newFindManyArgs = findManyTeamArgs;
+
+    newFindManyArgs.where = { ...newFindManyArgs.where, ...{
+      members: {
+        some: {
+          userId: {
+            equals: user.id
+          }
+        }
+      }
+    }}
+    return this.teamsService.findAll(newFindManyArgs)
+  }
+
 }
