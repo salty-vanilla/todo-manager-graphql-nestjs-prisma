@@ -4,7 +4,7 @@
     "../docker-compose.yml"
   ],
   "service": "api",
-  "workspaceFolder": "/code",
+  "workspaceFolder": "/code/api",
   "shutdownAction": "none",
   "customizations": {
     "vscode": {

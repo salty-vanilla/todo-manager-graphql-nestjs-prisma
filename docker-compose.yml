@@ -6,8 +6,8 @@ services:
       context: frontend
       dockerfile: docker/Dockerfile
     volumes:
-      - ./frontend:/code:cached
-      - frontend_node_modules:/code/node_modules
+      - .:/code:cached
+      - frontend_node_modules:/code/frontend/node_modules
     env_file:
       - .env
     hostname: vite
@@ -20,8 +20,8 @@ services:
       context: api
       dockerfile: docker/Dockerfile
     volumes:
-      - ./api:/code:cached
-      - api_node_modules:/code/node_modules
+      - .:/code:cached
+      - api_node_modules:/code/api/node_modules
     env_file:
       - .env
     hostname: apollo
