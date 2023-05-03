@@ -1,12 +1,11 @@
 import React from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from '@mui/material';
-
+import { useAuth } from '../types/CognitoContext';
 
 const LoginPage = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { signIn } = useAuth();
   return (
-    <Button onClick={() => loginWithRedirect()}>
+    <Button onClick={() => signIn()}>
       Login
     </Button>
   );

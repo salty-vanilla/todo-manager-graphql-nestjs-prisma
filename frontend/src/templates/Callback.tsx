@@ -1,48 +1,42 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "urql";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useAuth } from "../types/CognitoContext";
+import { CognitoUser } from "amazon-cognito-identity-js";
+import { Auth, Hub } from "aws-amplify";
 import { createUserMutation } from "../graphql/mutation/createUser";
+import { useCookies } from "react-cookie";
 import { getUserQuery } from "../graphql/query/getUser";
-import { Mutation, MutationCreateUserArgs, Query } from "../types/generated/graphql";
+import { useApolloUser } from "../types/ApolloUserContext";
 
 const CallbackPage = () => {
-  const navigate = useNavigate();
-  const { user } = useAuth0();
-  const [{ data, fetching }] = useQuery<Query['getUser']>({
-    query: getUserQuery,
-    pause: !user,
-  });
-  const [_, createUser] = useMutation<
-    Mutation['createUser'],
-    MutationCreateUserArgs
-  >(createUserMutation);
+  const { user } = useAuth();
+  const [ _, setCookie ] = useCookies();
+  const { signIn } = useApolloUser();
 
-  console.log({ user, data });
 
   useEffect(() => {
-    if (!user) return;
-    if (fetching) return;
+    const jwt = user?.getSignInUserSession()?.getIdToken().getJwtToken();
+    setCookie('jwt', jwt!);
+    signIn();
+  }, [])
 
-    if (!data?.id) {
-      console.log(user.sub, user.name);
-      createUser({
-        id: user.sub as string,
-        input: {
-          name: user.name as string,
-        },
-      })
-        .then((data) => {
-          console.log(data);
-          navigate('/todo');
-        })
-        .catch((e) => console.error(e));
-    } else {
-      navigate('/todo');
-    }
-  }, [data, fetching, user]);
+  useEffect(() => {
+    const jwt = user?.getSignInUserSession()?.getIdToken().getJwtToken();
+    setCookie('jwt', jwt!);
+    signIn();
+  }, [user])
 
-  return <div>Loading...</div>
+  return (
+  <div>
+    <div>
+      Loading......!!!!
+    </div>
+    {/* <div>
+      {user?.authenticateUser.name}
+    </div> */}
+  </div>
+  )
 }
 
 export default CallbackPage;

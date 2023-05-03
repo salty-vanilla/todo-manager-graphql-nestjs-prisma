@@ -247,106 +247,9 @@ type Team {
   updatedAt: DateTime!
   name: String!
   description: String
-  members: [TeamMember!]
+  members(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
   projects: [Project!]
   _count: TeamCount!
-}
-
-type TeamMemberAvgAggregate {
-  teamId: Float
-}
-
-type TeamMemberCountAggregate {
-  createdAt: Int!
-  updatedAt: Int!
-  teamId: Int!
-  userId: Int!
-  role: Int!
-  color: Int!
-  _all: Int!
-}
-
-type TeamMemberMaxAggregate {
-  createdAt: DateTime
-  updatedAt: DateTime
-  teamId: Int
-  userId: String
-  role: MemberRole
-  color: String
-}
-
-enum MemberRole {
-  admin
-  regular
-  pending
-}
-
-type TeamMemberMinAggregate {
-  createdAt: DateTime
-  updatedAt: DateTime
-  teamId: Int
-  userId: String
-  role: MemberRole
-  color: String
-}
-
-type TeamMemberSumAggregate {
-  teamId: Int
-}
-
-type TeamMember {
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  teamId: Int!
-  userId: String!
-  role: MemberRole!
-  color: String!
-  team: Team!
-  user: User!
-}
-
-type UserCountAggregate {
-  id: Int!
-  name: Int!
-  _all: Int!
-}
-
-type UserCount {
-  backlogItems: Int!
-  teams: Int!
-}
-
-type UserMaxAggregate {
-  id: String
-  name: String
-}
-
-type UserMinAggregate {
-  id: String
-  name: String
-}
-
-type User {
-  id: ID!
-  name: String!
-  backlogItems: [BacklogItem!]
-  teams: [TeamMember!]
-  _count: UserCount!
-}
-
-type Query {
-  projects: [Project!]!
-  project(id: Int!): Project!
-  users(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
-  user(id: String!): User!
-  stories: [Story!]!
-  story(id: Int!): Story!
-  backlogItems(where: BacklogItemWhereInput, orderBy: [BacklogItemOrderByWithRelationInput!], cursor: BacklogItemWhereUniqueInput, take: Int, skip: Int, distinct: [BacklogItemScalarFieldEnum!]): [BacklogItem!]!
-  backlogItem(id: Int!): BacklogItem!
-  teams: [Team!]!
-  team(id: Int!): Team!
-  teamMembers: [TeamMember!]!
-  teamMember(id: Int!): TeamMember!
 }
 
 input UserWhereInput {
@@ -619,6 +522,12 @@ input EnumMemberRoleFilter {
   not: NestedEnumMemberRoleFilter
 }
 
+enum MemberRole {
+  admin
+  regular
+  pending
+}
+
 input NestedEnumMemberRoleFilter {
   equals: MemberRole
   in: [MemberRole!]
@@ -666,6 +575,123 @@ enum UserScalarFieldEnum {
   name
 }
 
+type TeamMemberAvgAggregate {
+  teamId: Float
+}
+
+type TeamMemberCountAggregate {
+  createdAt: Int!
+  updatedAt: Int!
+  teamId: Int!
+  userId: Int!
+  role: Int!
+  color: Int!
+  _all: Int!
+}
+
+type TeamMemberMaxAggregate {
+  createdAt: DateTime
+  updatedAt: DateTime
+  teamId: Int
+  userId: String
+  role: MemberRole
+  color: String
+}
+
+type TeamMemberMinAggregate {
+  createdAt: DateTime
+  updatedAt: DateTime
+  teamId: Int
+  userId: String
+  role: MemberRole
+  color: String
+}
+
+type TeamMemberSumAggregate {
+  teamId: Int
+}
+
+type TeamMember {
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  teamId: Int!
+  userId: String!
+  role: MemberRole!
+  color: String!
+  team: Team!
+  user: User!
+}
+
+type UserCountAggregate {
+  id: Int!
+  name: Int!
+  _all: Int!
+}
+
+type UserCount {
+  backlogItems: Int!
+  teams: Int!
+}
+
+type UserMaxAggregate {
+  id: String
+  name: String
+}
+
+type UserMinAggregate {
+  id: String
+  name: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  backlogItems: [BacklogItem!]
+  teams(where: TeamWhereInput, orderBy: [TeamOrderByWithRelationInput!], cursor: TeamWhereUniqueInput, take: Int, skip: Int, distinct: [TeamScalarFieldEnum!]): [Team!]!
+  _count: UserCount!
+}
+
+input TeamOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  description: SortOrder
+  members: TeamMemberOrderByRelationAggregateInput
+  projects: ProjectOrderByRelationAggregateInput
+}
+
+input ProjectOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input TeamWhereUniqueInput {
+  id: Int
+}
+
+enum TeamScalarFieldEnum {
+  id
+  createdAt
+  updatedAt
+  name
+  description
+}
+
+type Query {
+  projects: [Project!]!
+  project(id: Int!): Project!
+  users(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
+  user(id: String!): User!
+  stories: [Story!]!
+  story(id: Int!): Story!
+  backlogItems(where: BacklogItemWhereInput, orderBy: [BacklogItemOrderByWithRelationInput!], cursor: BacklogItemWhereUniqueInput, take: Int, skip: Int, distinct: [BacklogItemScalarFieldEnum!]): [BacklogItem!]!
+  backlogItem(id: Int!): BacklogItem!
+  teams(where: TeamWhereInput, orderBy: [TeamOrderByWithRelationInput!], cursor: TeamWhereUniqueInput, take: Int, skip: Int, distinct: [TeamScalarFieldEnum!]): [Team!]!
+  team(id: Int!): Team!
+  teamMembers(where: TeamMemberWhereInput, orderBy: [TeamMemberOrderByWithRelationInput!], cursor: TeamMemberWhereUniqueInput, take: Int, skip: Int, distinct: [TeamMemberScalarFieldEnum!]): [TeamMember!]!
+  teamMember(teamId: Int!, userd: String!): TeamMember!
+}
+
 input BacklogItemOrderByWithRelationInput {
   id: SortOrder
   createdAt: SortOrder
@@ -711,20 +737,6 @@ input StoryOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input TeamOrderByWithRelationInput {
-  id: SortOrder
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  name: SortOrder
-  description: SortOrder
-  members: TeamMemberOrderByRelationAggregateInput
-  projects: ProjectOrderByRelationAggregateInput
-}
-
-input ProjectOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
 input BacklogItemWhereUniqueInput {
   id: Int
 }
@@ -740,6 +752,36 @@ enum BacklogItemScalarFieldEnum {
   status
   storyId
   userId
+}
+
+input TeamMemberOrderByWithRelationInput {
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  teamId: SortOrder
+  userId: SortOrder
+  role: SortOrder
+  color: SortOrder
+  team: TeamOrderByWithRelationInput
+  user: UserOrderByWithRelationInput
+}
+
+input TeamMemberWhereUniqueInput {
+  color: String
+  teamId_userId: TeamMemberTeamIdUserIdCompoundUniqueInput
+}
+
+input TeamMemberTeamIdUserIdCompoundUniqueInput {
+  teamId: Int!
+  userId: String!
+}
+
+enum TeamMemberScalarFieldEnum {
+  createdAt
+  updatedAt
+  teamId
+  userId
+  role
+  color
 }
 
 type Mutation {
@@ -896,23 +938,9 @@ input TeamCreateOrConnectWithoutMembersInput {
   create: TeamCreateWithoutMembersInput!
 }
 
-input TeamWhereUniqueInput {
-  id: Int
-}
-
 input TeamMemberCreateOrConnectWithoutUserInput {
   where: TeamMemberWhereUniqueInput!
   create: TeamMemberCreateWithoutUserInput!
-}
-
-input TeamMemberWhereUniqueInput {
-  color: String
-  teamId_userId: TeamMemberTeamIdUserIdCompoundUniqueInput
-}
-
-input TeamMemberTeamIdUserIdCompoundUniqueInput {
-  teamId: Int!
-  userId: String!
 }
 
 input TeamMemberCreateManyUserInputEnvelope {

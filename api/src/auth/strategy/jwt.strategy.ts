@@ -19,7 +19,6 @@ export interface Claim {
 const cookieExtractor = (req: Request): string | null => {
   let token = null;
   if (req && req.cookies) token = req.cookies['jwt'];
-  console.log(token);
   return token;
 };
 
@@ -45,7 +44,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: Claim) {
-    console.log(payload);
     return payload.sub;
   }
 }
