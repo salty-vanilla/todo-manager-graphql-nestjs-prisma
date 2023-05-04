@@ -98,5 +98,7 @@ model TeamMember {
   userId String
   user User @relation(fields: [userId], references: [id])
   role MemberRole @default(pending)
-  color String @unique
+  /// @HideField({ match: 'TeamMemberCreate*Input' })
+  color String
+  @@unique([teamId, color])
 }

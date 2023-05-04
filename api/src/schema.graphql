@@ -247,19 +247,67 @@ type Team {
   updatedAt: DateTime!
   name: String!
   description: String
-  members(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
+  members(where: TeamMemberWhereInput, orderBy: [TeamMemberOrderByWithRelationInput!], cursor: TeamMemberWhereUniqueInput, take: Int, skip: Int, distinct: [TeamMemberScalarFieldEnum!]): [TeamMember!]!
   projects: [Project!]
   _count: TeamCount!
 }
 
-input UserWhereInput {
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-  id: StringFilter
-  name: StringFilter
-  backlogItems: BacklogItemListRelationFilter
-  teams: TeamMemberListRelationFilter
+input TeamMemberWhereInput {
+  AND: [TeamMemberWhereInput!]
+  OR: [TeamMemberWhereInput!]
+  NOT: [TeamMemberWhereInput!]
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  teamId: IntFilter
+  userId: StringFilter
+  role: EnumMemberRoleFilter
+  color: StringFilter
+  team: TeamRelationFilter
+  user: UserRelationFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
 }
 
 input StringFilter {
@@ -296,94 +344,42 @@ input NestedStringFilter {
   not: NestedStringFilter
 }
 
-input BacklogItemListRelationFilter {
-  every: BacklogItemWhereInput
-  some: BacklogItemWhereInput
-  none: BacklogItemWhereInput
+input EnumMemberRoleFilter {
+  equals: MemberRole
+  in: [MemberRole!]
+  notIn: [MemberRole!]
+  not: NestedEnumMemberRoleFilter
 }
 
-input BacklogItemWhereInput {
-  AND: [BacklogItemWhereInput!]
-  OR: [BacklogItemWhereInput!]
-  NOT: [BacklogItemWhereInput!]
+enum MemberRole {
+  admin
+  regular
+  pending
+}
+
+input NestedEnumMemberRoleFilter {
+  equals: MemberRole
+  in: [MemberRole!]
+  notIn: [MemberRole!]
+  not: NestedEnumMemberRoleFilter
+}
+
+input TeamRelationFilter {
+  is: TeamWhereInput
+  isNot: TeamWhereInput
+}
+
+input TeamWhereInput {
+  AND: [TeamWhereInput!]
+  OR: [TeamWhereInput!]
+  NOT: [TeamWhereInput!]
   id: IntFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
-  startDate: DateTimeNullableFilter
-  targetDate: DateTimeNullableFilter
   name: StringFilter
   description: StringNullableFilter
-  status: EnumBacklogItemStatusFilter
-  storyId: IntFilter
-  userId: StringNullableFilter
-  story: StoryRelationFilter
-  user: UserRelationFilter
-}
-
-input IntFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: NestedIntFilter
-}
-
-input NestedIntFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: NestedIntFilter
-}
-
-input DateTimeFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeFilter
-}
-
-input NestedDateTimeFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeFilter
-}
-
-input DateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeNullableFilter
-}
-
-input NestedDateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeNullableFilter
+  members: TeamMemberListRelationFilter
+  projects: ProjectListRelationFilter
 }
 
 input StringNullableFilter {
@@ -415,6 +411,102 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
 }
 
+input TeamMemberListRelationFilter {
+  every: TeamMemberWhereInput
+  some: TeamMemberWhereInput
+  none: TeamMemberWhereInput
+}
+
+input ProjectListRelationFilter {
+  every: ProjectWhereInput
+  some: ProjectWhereInput
+  none: ProjectWhereInput
+}
+
+input ProjectWhereInput {
+  AND: [ProjectWhereInput!]
+  OR: [ProjectWhereInput!]
+  NOT: [ProjectWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  teamId: IntFilter
+  stories: StoryListRelationFilter
+  team: TeamRelationFilter
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+}
+
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeNullableFilter
+}
+
+input StoryListRelationFilter {
+  every: StoryWhereInput
+  some: StoryWhereInput
+  none: StoryWhereInput
+}
+
+input StoryWhereInput {
+  AND: [StoryWhereInput!]
+  OR: [StoryWhereInput!]
+  NOT: [StoryWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  projectId: IntFilter
+  backlogItems: BacklogItemListRelationFilter
+  project: ProjectRelationFilter
+}
+
+input BacklogItemListRelationFilter {
+  every: BacklogItemWhereInput
+  some: BacklogItemWhereInput
+  none: BacklogItemWhereInput
+}
+
+input BacklogItemWhereInput {
+  AND: [BacklogItemWhereInput!]
+  OR: [BacklogItemWhereInput!]
+  NOT: [BacklogItemWhereInput!]
+  id: IntFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+  startDate: DateTimeNullableFilter
+  targetDate: DateTimeNullableFilter
+  name: StringFilter
+  description: StringNullableFilter
+  status: EnumBacklogItemStatusFilter
+  storyId: IntFilter
+  userId: StringNullableFilter
+  story: StoryRelationFilter
+  user: UserRelationFilter
+}
+
 input EnumBacklogItemStatusFilter {
   equals: BacklogItemStatus
   in: [BacklogItemStatus!]
@@ -434,20 +526,19 @@ input StoryRelationFilter {
   isNot: StoryWhereInput
 }
 
-input StoryWhereInput {
-  AND: [StoryWhereInput!]
-  OR: [StoryWhereInput!]
-  NOT: [StoryWhereInput!]
-  id: IntFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  startDate: DateTimeNullableFilter
-  targetDate: DateTimeNullableFilter
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: StringFilter
   name: StringFilter
-  description: StringNullableFilter
-  projectId: IntFilter
   backlogItems: BacklogItemListRelationFilter
-  project: ProjectRelationFilter
+  teams: TeamMemberListRelationFilter
 }
 
 input ProjectRelationFilter {
@@ -455,95 +546,38 @@ input ProjectRelationFilter {
   isNot: ProjectWhereInput
 }
 
-input ProjectWhereInput {
-  AND: [ProjectWhereInput!]
-  OR: [ProjectWhereInput!]
-  NOT: [ProjectWhereInput!]
-  id: IntFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  startDate: DateTimeNullableFilter
-  targetDate: DateTimeNullableFilter
-  name: StringFilter
-  description: StringNullableFilter
-  teamId: IntFilter
-  stories: StoryListRelationFilter
-  team: TeamRelationFilter
+input TeamMemberOrderByWithRelationInput {
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  teamId: SortOrder
+  userId: SortOrder
+  role: SortOrder
+  color: SortOrder
+  team: TeamOrderByWithRelationInput
+  user: UserOrderByWithRelationInput
 }
 
-input StoryListRelationFilter {
-  every: StoryWhereInput
-  some: StoryWhereInput
-  none: StoryWhereInput
+enum SortOrder {
+  asc
+  desc
 }
 
-input TeamRelationFilter {
-  is: TeamWhereInput
-  isNot: TeamWhereInput
+input TeamOrderByWithRelationInput {
+  id: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+  name: SortOrder
+  description: SortOrder
+  members: TeamMemberOrderByRelationAggregateInput
+  projects: ProjectOrderByRelationAggregateInput
 }
 
-input TeamWhereInput {
-  AND: [TeamWhereInput!]
-  OR: [TeamWhereInput!]
-  NOT: [TeamWhereInput!]
-  id: IntFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  name: StringFilter
-  description: StringNullableFilter
-  members: TeamMemberListRelationFilter
-  projects: ProjectListRelationFilter
+input TeamMemberOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
-input TeamMemberListRelationFilter {
-  every: TeamMemberWhereInput
-  some: TeamMemberWhereInput
-  none: TeamMemberWhereInput
-}
-
-input TeamMemberWhereInput {
-  AND: [TeamMemberWhereInput!]
-  OR: [TeamMemberWhereInput!]
-  NOT: [TeamMemberWhereInput!]
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-  teamId: IntFilter
-  userId: StringFilter
-  role: EnumMemberRoleFilter
-  color: StringFilter
-  team: TeamRelationFilter
-  user: UserRelationFilter
-}
-
-input EnumMemberRoleFilter {
-  equals: MemberRole
-  in: [MemberRole!]
-  notIn: [MemberRole!]
-  not: NestedEnumMemberRoleFilter
-}
-
-enum MemberRole {
-  admin
-  regular
-  pending
-}
-
-input NestedEnumMemberRoleFilter {
-  equals: MemberRole
-  in: [MemberRole!]
-  notIn: [MemberRole!]
-  not: NestedEnumMemberRoleFilter
-}
-
-input UserRelationFilter {
-  is: UserWhereInput
-  isNot: UserWhereInput
-}
-
-input ProjectListRelationFilter {
-  every: ProjectWhereInput
-  some: ProjectWhereInput
-  none: ProjectWhereInput
+input ProjectOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
 input UserOrderByWithRelationInput {
@@ -553,26 +587,27 @@ input UserOrderByWithRelationInput {
   teams: TeamMemberOrderByRelationAggregateInput
 }
 
-enum SortOrder {
-  asc
-  desc
-}
-
 input BacklogItemOrderByRelationAggregateInput {
   _count: SortOrder
 }
 
-input TeamMemberOrderByRelationAggregateInput {
-  _count: SortOrder
+input TeamMemberWhereUniqueInput {
+  color: String
+  teamId_userId: TeamMemberTeamIdUserIdCompoundUniqueInput
 }
 
-input UserWhereUniqueInput {
-  id: String
+input TeamMemberTeamIdUserIdCompoundUniqueInput {
+  teamId: Int!
+  userId: String!
 }
 
-enum UserScalarFieldEnum {
-  id
-  name
+enum TeamMemberScalarFieldEnum {
+  createdAt
+  updatedAt
+  teamId
+  userId
+  role
+  color
 }
 
 type TeamMemberAvgAggregate {
@@ -647,34 +682,8 @@ type User {
   id: ID!
   name: String!
   backlogItems: [BacklogItem!]
-  teams(where: TeamWhereInput, orderBy: [TeamOrderByWithRelationInput!], cursor: TeamWhereUniqueInput, take: Int, skip: Int, distinct: [TeamScalarFieldEnum!]): [Team!]!
+  teams(where: TeamMemberWhereInput, orderBy: [TeamMemberOrderByWithRelationInput!], cursor: TeamMemberWhereUniqueInput, take: Int, skip: Int, distinct: [TeamMemberScalarFieldEnum!]): [TeamMember!]!
   _count: UserCount!
-}
-
-input TeamOrderByWithRelationInput {
-  id: SortOrder
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  name: SortOrder
-  description: SortOrder
-  members: TeamMemberOrderByRelationAggregateInput
-  projects: ProjectOrderByRelationAggregateInput
-}
-
-input ProjectOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
-input TeamWhereUniqueInput {
-  id: Int
-}
-
-enum TeamScalarFieldEnum {
-  id
-  createdAt
-  updatedAt
-  name
-  description
 }
 
 type Query {
@@ -690,6 +699,15 @@ type Query {
   team(id: Int!): Team!
   teamMembers(where: TeamMemberWhereInput, orderBy: [TeamMemberOrderByWithRelationInput!], cursor: TeamMemberWhereUniqueInput, take: Int, skip: Int, distinct: [TeamMemberScalarFieldEnum!]): [TeamMember!]!
   teamMember(teamId: Int!, userd: String!): TeamMember!
+}
+
+input UserWhereUniqueInput {
+  id: String
+}
+
+enum UserScalarFieldEnum {
+  id
+  name
 }
 
 input BacklogItemOrderByWithRelationInput {
@@ -754,34 +772,16 @@ enum BacklogItemScalarFieldEnum {
   userId
 }
 
-input TeamMemberOrderByWithRelationInput {
-  createdAt: SortOrder
-  updatedAt: SortOrder
-  teamId: SortOrder
-  userId: SortOrder
-  role: SortOrder
-  color: SortOrder
-  team: TeamOrderByWithRelationInput
-  user: UserOrderByWithRelationInput
+input TeamWhereUniqueInput {
+  id: Int
 }
 
-input TeamMemberWhereUniqueInput {
-  color: String
-  teamId_userId: TeamMemberTeamIdUserIdCompoundUniqueInput
-}
-
-input TeamMemberTeamIdUserIdCompoundUniqueInput {
-  teamId: Int!
-  userId: String!
-}
-
-enum TeamMemberScalarFieldEnum {
+enum TeamScalarFieldEnum {
+  id
   createdAt
   updatedAt
-  teamId
-  userId
-  role
-  color
+  name
+  description
 }
 
 type Mutation {
@@ -874,7 +874,6 @@ input TeamMemberCreateWithoutUserInput {
   createdAt: DateTime
   updatedAt: DateTime
   role: MemberRole
-  color: String!
   team: TeamCreateNestedOneWithoutMembersInput!
 }
 
@@ -953,7 +952,6 @@ input TeamMemberCreateManyUserInput {
   updatedAt: DateTime
   teamId: Int!
   role: MemberRole
-  color: String!
 }
 
 input UserCreateOrConnectWithoutBacklogItemsInput {
@@ -1032,7 +1030,6 @@ input TeamMemberCreateWithoutTeamInput {
   createdAt: DateTime
   updatedAt: DateTime
   role: MemberRole
-  color: String!
   user: UserCreateNestedOneWithoutTeamsInput!
 }
 
@@ -1150,7 +1147,6 @@ input TeamMemberCreateManyTeamInput {
   updatedAt: DateTime
   userId: String!
   role: MemberRole
-  color: String!
 }
 
 input TeamCreateOrConnectWithoutProjectsInput {
@@ -1732,7 +1728,6 @@ input TeamMemberCreateInput {
   createdAt: DateTime
   updatedAt: DateTime
   role: MemberRole
-  color: String!
   team: TeamCreateNestedOneWithoutMembersInput!
   user: UserCreateNestedOneWithoutTeamsInput!
 }

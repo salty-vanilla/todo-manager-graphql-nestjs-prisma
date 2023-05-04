@@ -4,6 +4,7 @@ import { useLazyQuery, useMutation } from "@apollo/client";
 import { BaseDialog, BaseDialogProps } from "./_base/Dialog";
 import { createTeamMutation } from "../graphql/mutation/createTeam";
 import { useApolloUser } from "../types/ApolloUserContext";
+import { MemberRole } from '../types/generated/graphql';
 
 type Props = {
   open: boolean,
@@ -23,6 +24,18 @@ const Actions = (props: {
       variables: {
         input: {
           name: teamName,
+          members: {
+            create: [
+              {
+                user: {
+                  connect: {
+                    id: user.id
+                  }
+                },
+                role: 'admin'
+              }
+            ]
+          }
         }
       }
     }).then(() => {

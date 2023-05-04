@@ -1,13 +1,17 @@
 import { prisma } from '@lib/prisma';
 import { Injectable } from '@nestjs/common';
+import { PRESET_COLORS } from 'src/types/colors';
 import { FindManyTeamMemberArgs, TeamMemberCreateInput, TeamMemberUpdateInput } from 'src/types/prisma-nestjs-graphql';
-import internal from 'stream';
+import { findNewColor } from 'src/utils/findNewColor';
 
 @Injectable()
 export class TeamMembersService {
   async create(createTeamMemberInput: TeamMemberCreateInput) {
     const teamMember = await prisma.teamMember.create({
-      data: createTeamMemberInput,
+      data: {
+        ...createTeamMemberInput,
+        color: await findNewColor(createTeamMemberInput.team.connect.id),
+      }
     });
     return teamMember;
   }
@@ -28,7 +32,7 @@ export class TeamMembersService {
           userId: userId,
         }
       }
-    }) 
+    })
     return teamMember;
   }
 

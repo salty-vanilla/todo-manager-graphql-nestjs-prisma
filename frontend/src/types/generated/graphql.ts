@@ -1331,7 +1331,7 @@ export type Team = {
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  members: Array<User>;
+  members: Array<TeamMember>;
   name: Scalars['String'];
   projects?: Maybe<Array<Project>>;
   updatedAt: Scalars['DateTime'];
@@ -1339,12 +1339,12 @@ export type Team = {
 
 
 export type TeamMembersArgs = {
-  cursor?: InputMaybe<UserWhereUniqueInput>;
-  distinct?: InputMaybe<Array<UserScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<UserOrderByWithRelationInput>>;
+  cursor?: InputMaybe<TeamMemberWhereUniqueInput>;
+  distinct?: InputMaybe<Array<TeamMemberScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<TeamMemberOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<UserWhereInput>;
+  where?: InputMaybe<TeamMemberWhereInput>;
 };
 
 export type TeamAvgAggregate = {
@@ -1453,7 +1453,6 @@ export type TeamMemberCountAggregate = {
 };
 
 export type TeamMemberCreateInput = {
-  color: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   role?: InputMaybe<MemberRole>;
   team: TeamCreateNestedOneWithoutMembersInput;
@@ -1462,7 +1461,6 @@ export type TeamMemberCreateInput = {
 };
 
 export type TeamMemberCreateManyTeamInput = {
-  color: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   role?: InputMaybe<MemberRole>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -1475,7 +1473,6 @@ export type TeamMemberCreateManyTeamInputEnvelope = {
 };
 
 export type TeamMemberCreateManyUserInput = {
-  color: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   role?: InputMaybe<MemberRole>;
   teamId: Scalars['Int'];
@@ -1512,7 +1509,6 @@ export type TeamMemberCreateOrConnectWithoutUserInput = {
 };
 
 export type TeamMemberCreateWithoutTeamInput = {
-  color: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   role?: InputMaybe<MemberRole>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -1520,7 +1516,6 @@ export type TeamMemberCreateWithoutTeamInput = {
 };
 
 export type TeamMemberCreateWithoutUserInput = {
-  color: Scalars['String'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   role?: InputMaybe<MemberRole>;
   team: TeamCreateNestedOneWithoutMembersInput;
@@ -1819,17 +1814,17 @@ export type User = {
   backlogItems?: Maybe<Array<BacklogItem>>;
   id: Scalars['ID'];
   name: Scalars['String'];
-  teams: Array<Team>;
+  teams: Array<TeamMember>;
 };
 
 
 export type UserTeamsArgs = {
-  cursor?: InputMaybe<TeamWhereUniqueInput>;
-  distinct?: InputMaybe<Array<TeamScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<TeamOrderByWithRelationInput>>;
+  cursor?: InputMaybe<TeamMemberWhereUniqueInput>;
+  distinct?: InputMaybe<Array<TeamMemberScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<TeamMemberOrderByWithRelationInput>>;
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<TeamWhereInput>;
+  where?: InputMaybe<TeamMemberWhereInput>;
 };
 
 export type UserCount = {
@@ -2740,7 +2735,7 @@ export type TeamResolvers<ContextType = Context, ParentType extends ResolversPar
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  members?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType, Partial<TeamMembersArgs>>;
+  members?: Resolver<Array<ResolversTypes['TeamMember']>, ParentType, ContextType, Partial<TeamMembersArgs>>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   projects?: Resolver<Maybe<Array<ResolversTypes['Project']>>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -2849,7 +2844,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
   backlogItems?: Resolver<Maybe<Array<ResolversTypes['BacklogItem']>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  teams?: Resolver<Array<ResolversTypes['Team']>, ParentType, ContextType, Partial<UserTeamsArgs>>;
+  teams?: Resolver<Array<ResolversTypes['TeamMember']>, ParentType, ContextType, Partial<UserTeamsArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

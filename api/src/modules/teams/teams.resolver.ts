@@ -1,7 +1,8 @@
 import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { TeamsService } from './teams.service';
-import { FindManyTeamArgs, FindManyUserArgs, Team, TeamCreateInput, TeamUpdateInput, User } from 'src/types/prisma-nestjs-graphql';
+import { FindManyTeamArgs, FindManyTeamMemberArgs, FindManyUserArgs, Team, TeamCreateInput, TeamMember, TeamUpdateInput, User } from 'src/types/prisma-nestjs-graphql';
 import { UsersService } from '@modules/users/users.service';
+import { TeamMembersService } from '@modules/team-members/team-members.service';
 
 
 @Resolver(() => Team)
@@ -9,7 +10,8 @@ export class TeamsResolver {
   constructor(
     private readonly teamsService: TeamsService,
     private readonly usersService: UsersService,
-  ) {}
+    private readonly teamMembersService: TeamMembersService,
+    ) {}
 
   @Mutation(() => Team)
   createTeam(@Args('teamCreateInput') teamCreateInput: TeamCreateInput) {
@@ -39,22 +41,18 @@ export class TeamsResolver {
     return this.teamsService.remove(id);
   }
 
-  @ResolveField('members', () => [User])
-  fetchTeams(
+  @ResolveField('members', () => [TeamMember])
+  fetchMembers(
     @Parent() team: Team,
-    @Args({nullable: true}) findManyUserArgs: FindManyUserArgs
+    @Args({nullable: true}) findManyTeamMemberArgs: FindManyTeamMemberArgs
   ){
-    let newFindManyArgs = findManyUserArgs;
-
+    let newFindManyArgs = findManyTeamMemberArgs;
     newFindManyArgs.where = { ...newFindManyArgs.where, ...{
-      teams: {
-        some: {
-          teamId: {
-            equals: team.id
-          }
-        }
+      teamId: {
+        equals: team.id
       }
     }}
-    return this.usersService.findAll(newFindManyArgs)
+
+    return this.teamMembersService.findAll(newFindManyArgs);
   }
 }

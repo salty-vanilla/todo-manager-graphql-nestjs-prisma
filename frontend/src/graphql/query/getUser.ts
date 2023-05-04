@@ -6,8 +6,12 @@ query getUser($id: String!) {
     id,
     name,
     teams {
-      id,
-      name,
+      team {
+        id,
+        name,
+      },
+      role,
+      color,
     },
   }
 }

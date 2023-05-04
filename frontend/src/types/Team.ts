@@ -4,5 +4,5 @@ export type Team = {
   id: number,
   name: string,
   description?: string,
-  members: User[],
+  members?: User[],
 }

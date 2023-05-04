@@ -18,13 +18,13 @@ const CallbackPage = () => {
   useEffect(() => {
     const jwt = user?.getSignInUserSession()?.getIdToken().getJwtToken();
     setCookie('jwt', jwt!);
-    signIn();
+    // signIn();
   }, [])
 
   useEffect(() => {
     const jwt = user?.getSignInUserSession()?.getIdToken().getJwtToken();
     setCookie('jwt', jwt!);
-    signIn();
+    // signIn();
   }, [user])
 
   return (

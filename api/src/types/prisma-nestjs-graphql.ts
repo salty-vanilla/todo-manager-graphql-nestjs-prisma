@@ -7,6 +7,7 @@ import { InputType } from '@nestjs/graphql';
 import { Float } from '@nestjs/graphql';
 import { registerEnumType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { HideField } from '@nestjs/graphql';
 
 export enum UserScalarFieldEnum {
     id = "id",
@@ -5708,7 +5709,7 @@ export class TeamMemberCreateManyTeamInput {
     userId!: string;
     @Field(() => MemberRole, {nullable:true})
     role?: keyof typeof MemberRole;
-    @Field(() => String, {nullable:false})
+    @HideField()
     color!: string;
 }
 
@@ -5731,7 +5732,7 @@ export class TeamMemberCreateManyUserInput {
     teamId!: number;
     @Field(() => MemberRole, {nullable:true})
     role?: keyof typeof MemberRole;
-    @Field(() => String, {nullable:false})
+    @HideField()
     color!: string;
 }
 
@@ -5747,7 +5748,7 @@ export class TeamMemberCreateManyInput {
     userId!: string;
     @Field(() => MemberRole, {nullable:true})
     role?: keyof typeof MemberRole;
-    @Field(() => String, {nullable:false})
+    @HideField()
     color!: string;
 }
 
@@ -5811,7 +5812,7 @@ export class TeamMemberCreateWithoutTeamInput {
     updatedAt?: Date | string;
     @Field(() => MemberRole, {nullable:true})
     role?: keyof typeof MemberRole;
-    @Field(() => String, {nullable:false})
+    @HideField()
     color!: string;
     @Field(() => UserCreateNestedOneWithoutTeamsInput, {nullable:false})
     user!: InstanceType<typeof UserCreateNestedOneWithoutTeamsInput>;
@@ -5825,7 +5826,7 @@ export class TeamMemberCreateWithoutUserInput {
     updatedAt?: Date | string;
     @Field(() => MemberRole, {nullable:true})
     role?: keyof typeof MemberRole;
-    @Field(() => String, {nullable:false})
+    @HideField()
     color!: string;
     @Field(() => TeamCreateNestedOneWithoutMembersInput, {nullable:false})
     team!: InstanceType<typeof TeamCreateNestedOneWithoutMembersInput>;
@@ -5839,7 +5840,7 @@ export class TeamMemberCreateInput {
     updatedAt?: Date | string;
     @Field(() => MemberRole, {nullable:true})
     role?: keyof typeof MemberRole;
-    @Field(() => String, {nullable:false})
+    @HideField()
     color!: string;
     @Field(() => TeamCreateNestedOneWithoutMembersInput, {nullable:false})
     team!: InstanceType<typeof TeamCreateNestedOneWithoutMembersInput>;
